@@ -53,17 +53,11 @@ public:
     }
 };
 
-int func1(int amount, vector<int>& coins){
-    return 1;
-}
+int func1(int amount, vector<int>& coins);
 
-int func2(int amount, vector< vector<int> >& conquer){
-    return 2;
-}
+int func2(int amount, vector< vector<int> >& conquer);
 
-double func3(int n,int hp, vector<int>& damage, vector<int>& edges){
-    return 3.0;
-}
+double func3(int n,int hp, vector<int>& damage, vector<int>& edges);
 
 int input_data1(vector<int>& coins)
 {
