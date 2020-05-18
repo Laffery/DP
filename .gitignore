@@ -1,6 +1,2 @@
 # Executables
 *.exe
-
-# Test Data
-test/
-answer/
