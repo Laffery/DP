@@ -38,10 +38,44 @@ int func1(int amount, vector<int>& coins)
 	return line0.at(amount);
 }
 
+/**************part 2**************/
+
 int func2(int amount, vector< vector<int> >& conquer)
 {
-	
-	return -1;
+	int count = 0;// who can win
+	vector<vector<int>> meet;
+	for(int i = 0; i < amount; ++i){
+		vector<int> tmp;
+		for(int j = 0; j < amount; ++j)
+			tmp.push_back(0);
+		
+		tmp.at((i + 1)%amount) = 1;
+		meet.push_back(tmp);
+	}
+
+	for(int i = 1; i < amount; ++i){
+		for(int beg = 0; beg < amount; beg++){
+			int end = (beg + i + 1)%amount;
+			if(meet.at(beg).at(end))
+				continue;
+				
+			for(int j = (beg + 1)%amount; j != end; j++, j %= amount){
+				if(meet.at(beg).at(j) && meet.at(j).at(end) && 
+				(conquer.at(beg).at(j) || conquer.at(end).at(j))) {
+					meet.at(beg).at(end) = 1;
+					break;
+				}
+			}
+		}
+	}
+
+	for(int i = 0; i < amount; ++i){
+		count += meet.at(i).at(i);
+		meet.at(i).clear();
+	}
+
+	meet.clear();
+	return count;
 }
 
 
