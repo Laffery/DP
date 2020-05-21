@@ -38,27 +38,31 @@ int func1(int amount, vector<int>& coins)
 	return line0.at(amount);
 }
 
-/**************part 2**************/
-
+/*
+ * meet.at(i).at(j): i can meet j
+ * conquer.at(i).at(j): i can defeat j
+ */
 int func2(int amount, vector< vector<int> >& conquer)
 {
-	int count = 0;// who can win
+	// init meet matrix
 	vector<vector<int>> meet;
 	for(int i = 0; i < amount; ++i){
-		vector<int> tmp;
-		for(int j = 0; j < amount; ++j)
-			tmp.push_back(0);
-		
+		vector<int> tmp(amount, 0);
 		tmp.at((i + 1)%amount) = 1;
 		meet.push_back(tmp);
 	}
 
+	// update meet matrix
 	for(int i = 1; i < amount; ++i){
 		for(int beg = 0; beg < amount; beg++){
 			int end = (beg + i + 1)%amount;
+			
+			// accessable, next loop
 			if(meet.at(beg).at(end))
 				continue;
 				
+			// if exists j that beg can meet j and j can meet end, and beg or end 
+			// can defeat j so that beg can meet end
 			for(int j = (beg + 1)%amount; j != end; j++, j %= amount){
 				if(meet.at(beg).at(j) && meet.at(j).at(end) && 
 				(conquer.at(beg).at(j) || conquer.at(end).at(j))) {
@@ -69,6 +73,8 @@ int func2(int amount, vector< vector<int> >& conquer)
 		}
 	}
 
+	// meet.at(i).at(i) = 1 means i can win
+	int count = 0;
 	for(int i = 0; i < amount; ++i){
 		count += meet.at(i).at(i);
 		meet.at(i).clear();
@@ -82,5 +88,5 @@ int func2(int amount, vector< vector<int> >& conquer)
 double func3(int n,int hp,vector<int>& damage,vector<int>& edges) 
 {
     
-    return -1;
+    return 1.0;
 }
